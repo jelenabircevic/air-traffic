@@ -3,6 +3,13 @@ import { dataService, geoService } from './services';
 
 const locationSuccessHandler = (position) => {
     console.log(position);
+    dataService.getFlightData(position)
+        .then(result => {
+            ui.displayList(result);
+        })
+        .catch(error => {
+            console.log(error)
+        })
 }
 
 const locationFailHandler = (error) => {
@@ -10,14 +17,12 @@ const locationFailHandler = (error) => {
 }
 
 const locationUnavailableHandler = () => {
-    console.log('Location services unavailable')
+    console.log('Location services not supported by this browser/OS')
 }
 
 onload = () => {
-    if (ui.askForPermissions()) {
-        geoService.getUserLocation(locationSuccessHandler, locationFailHandler, locationUnavailableHandler);
-        ui.loading();
-    } else {
-        console.log('It is necessary to allow location services in order to use the app.')
-    }
+    ui.loading();
+    setTimeout(() => {
+        geoService.getUserLocation(locationSuccessHandler, locationFailHandler, locationUnavailableHandler)
+    }, 5000);
 }
