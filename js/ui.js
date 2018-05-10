@@ -1,28 +1,29 @@
+import listTemplate from './listTemplate.hbs';
+
+const uiSelectors = {
+    flightList: '#flights-container'
+}
+
+let flightList = document.querySelector(uiSelectors.flightList);
+
 class UI {
 
     loading() {
-        document.querySelector('#app').innerHTML = '<h3>Loading...</h3>'
-        console.log('Loading...')
+        flightList.innerHTML = '<h3>Loading...</h3>';
+        console.log('Loading...');
     }
 
-    stopLoading() {
-        document.querySelector('#app').innerHTML = '';
+    displayPermissionsError() {
+        flightList.innerHTML = '<h3>Location has been denied: cannot display data</h3>';
+        console.log('permission error');
     }
 
     displayList(data) {
-        this.stopLoading();
-        let flightList = document.createElement('ul');
-        document.querySelector('#app').appendChild(flightList);
-        flightList = document.querySelector('ul');
-        console.log(`ul element: ${flightList}`);
         if(JSON.stringify(data.acList) !== JSON.stringify([])) {
-            data.acList.forEach(aircraft => {
-                let listItem = document.createElement('li');
-                let content = document.createTextNode(`${aircraft.Id}, ${aircraft.Alt}, ${(aircraft.Trak < 180) ? "eastbound" : "westbound"}`);
-                listItem.appendChild(content);
-                flightList.appendChild(listItem);
-            })
+            console.log('Printing list...');
+            flightList.innerHTML = listTemplate(data);
         } else {
+            flightList.innerHTML = '<h3>Currently no flights in the area</h3>';
             console.log('Currently no flights in the area');
         }
     }

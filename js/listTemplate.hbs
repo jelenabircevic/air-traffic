@@ -1,0 +1,15 @@
+{{#each acList}}
+    {{#if Gnd}}
+    {{else}}
+    <div class="flight grid-container">
+        <div class="image-column">
+            <img class="flight-icon" src="{{getDirectionImage Trak}}" />
+        </div>
+        <div class="info-column">
+            <p class="flight-id">Flight ID: {{Id}}</p>
+            <p class="flight-info">Altitude: {{Alt}}</p>
+            <p class="flight-info">{{getDirection Trak}}</p>
+        </div>
+    </div>
+    {{/if}}
+{{/each}}

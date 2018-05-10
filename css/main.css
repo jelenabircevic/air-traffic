@@ -1,0 +1,18 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 150px auto;
+}
+
+.flight-icon {
+    height: 90px;
+}
+
+.flight {
+    background-color: rgb(178, 214, 230);
+    padding: 10px;
+    margin: 5px;
+}
+
+.flight:hover {
+    background-color: rgb(185, 188, 189);
+}

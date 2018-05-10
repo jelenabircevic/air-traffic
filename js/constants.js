@@ -1,4 +1,21 @@
 export const URL = 'https://public-api.adsbexchange.com/VirtualRadar/AircraftList.json';
+export const FLIGHT_DAT = {
+    src: 1,
+    feeds: [
+    {
+    id: 1,
+    name: "From Consolidator",
+    polarPlot: false
+    }
+    ],
+    srcFeed: 1,
+    showSil: true,
+    showFlg: true,
+    showPic: true,
+    flgH: 20,
+    flgW: 85,
+    acList: []
+}
 export const FLIGHT_DATA = {
     src: 1,
     feeds: [

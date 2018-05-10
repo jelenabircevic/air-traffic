@@ -1,7 +1,7 @@
 class Flight {
     constructor (altitude, direction){
         this.altitude = altitude;
-        this.direction = direction;
+        this.direction = direction
     }
 }
 

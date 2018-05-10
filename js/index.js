@@ -13,7 +13,7 @@ const locationSuccessHandler = (position) => {
 }
 
 const locationFailHandler = (error) => {
-    console.log(error);
+    ui.displayPermissionsError();
 }
 
 const locationUnavailableHandler = () => {
@@ -26,3 +26,4 @@ onload = () => {
         geoService.getUserLocation(locationSuccessHandler, locationFailHandler, locationUnavailableHandler)
     }, 5000);
 }
+

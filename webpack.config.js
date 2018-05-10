@@ -22,6 +22,13 @@ module.exports = {
                 query: {
                     presets: ['es2015']
                 }
+            },
+            {
+                test: /\.hbs$/,
+                use: [{
+                    loader: 'handlebars-loader',
+                    options: {helperDirs: __dirname + '/js/helpers'}
+                }]
             }
         ]
     },
