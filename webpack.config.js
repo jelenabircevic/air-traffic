@@ -1,5 +1,5 @@
 var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
+require('webpack');
 
 module.exports = {
     context: __dirname,
@@ -14,4 +14,15 @@ module.exports = {
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false })
     ],
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
+            }
+        ]
+    },
 };
