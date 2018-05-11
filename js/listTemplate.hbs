@@ -1,14 +1,12 @@
-{{#each acList}}
-    {{#if Gnd}}
-    {{else}}
+{{#each flights}}
+    {{#if inAir}}
     <div class="flight grid-container">
         <div class="image-column">
-            <img class="flight-icon" src="{{getDirectionImage Trak}}" />
+            <img class="flight-icon" src="{{getDirectionImage direction}}" />
         </div>
         <div class="info-column">
-            <p class="flight-id">Flight ID: {{Id}}</p>
-            <p class="flight-info">Altitude: {{Alt}}</p>
-            <p class="flight-info">{{getDirection Trak}}</p>
+            <p class="flight-id">Flight ID: {{flightCode}}</p>
+            <p class="flight-info">Altitude: {{altitude}}</p>
         </div>
     </div>
     {{/if}}

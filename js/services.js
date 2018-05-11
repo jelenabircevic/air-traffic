@@ -1,11 +1,11 @@
-import axios from 'axios';
+import $ from 'jquery';
 import Flight from './entities';
-import { URL, FLIGHT_DATA } from './constants';
+import { URL } from './constants';
 
 class GeoService {
 
     getUserLocation(onSuccess, onFail, onUnavailable) {
-        if('geolocation' in navigator) {
+        if ('geolocation' in navigator) {
             console.log('about to get location...');
             navigator.geolocation.getCurrentPosition(result => {
                 const position = {
@@ -23,15 +23,23 @@ class GeoService {
 class DataService {
 
     async getFlightData(geolocation) {
-        /* return axios.get(`${url}?lat=${geolocation.lat}&lng=${geolocation.lng}&fDstL=0&fDstU=10`)
-            .then(response => {
-                console.log(`Iz servisa: ${response.data}`);
-                return response;
-            })
-            .catch(error => {
-                console.log(error)
-            }) */
-        return FLIGHT_DATA;
+        let response = await $.ajax({
+            dataType: 'jsonp',
+            data: `lat=${geolocation.lat}&lng=${geolocation.lng}&fDstL=0&fDstU=100`,
+            url: URL,
+            success: (response) => {
+
+            }
+        });
+        let flightData = response.acList;
+        let flightList = flightData.map(flight => {
+            return new Flight(flight.Alt, flight.Trak, flight.Id, flight.Mdl, flight.To, flight.From, flight.OpIcao, flight.Gnd)
+        });
+        let data = {
+            flights: flightList.sort((a, b) => b.altitude - a.altitude)
+        }
+        console.log(data);
+        return data;
     }
 }
 

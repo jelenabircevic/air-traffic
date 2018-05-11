@@ -1,22 +1,27 @@
 import ui from './ui';
 import { dataService, geoService } from './services';
 
+
 const locationSuccessHandler = (position) => {
-    console.log(position);
-    dataService.getFlightData(position)
-        .then(result => {
-            ui.displayList(result);
-        })
-        .catch(error => {
-            console.log(error)
-        })
+    setInterval(() => {
+        dataService.getFlightData(position)
+            .then(data => {
+                ui.displayList(data);
+            })
+            .catch(error => {
+                ui.displayErrorDefault();
+                console.log(error)
+            })
+
+    }, 60000)
 }
 
 const locationFailHandler = (error) => {
-    ui.displayPermissionsError();
+    ui.displayErrorPermissions();
 }
 
 const locationUnavailableHandler = () => {
+    ui.displayErrorSupport();
     console.log('Location services not supported by this browser/OS')
 }
 
@@ -24,6 +29,6 @@ onload = () => {
     ui.loading();
     setTimeout(() => {
         geoService.getUserLocation(locationSuccessHandler, locationFailHandler, locationUnavailableHandler)
-    }, 5000);
+    }, 3000);
 }
 

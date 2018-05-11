@@ -1,29 +1,37 @@
 import listTemplate from './listTemplate.hbs';
 
 const uiSelectors = {
-    flightList: '#flights-container'
+    view: '#view'
 }
 
-let flightList = document.querySelector(uiSelectors.flightList);
+let view = document.querySelector(uiSelectors.view);
 
 class UI {
 
     loading() {
-        flightList.innerHTML = '<h3>Loading...</h3>';
+        view.innerHTML = '<h3>Loading...</h3>';
         console.log('Loading...');
     }
 
-    displayPermissionsError() {
-        flightList.innerHTML = '<h3>Location has been denied: cannot display data</h3>';
+    displayErrorPermissions() {
+        view.innerHTML = '<h3>Location has been denied: cannot display data</h3>';
         console.log('permission error');
     }
 
+    displayErrorDefault() {
+        view.innerHTML = '<h3>Oops! Something went wrong</h3>'
+    }
+
+    displayErrorSupport() {
+        view.innerHTML = '<h3>Location services not supported</h3>'
+    }
+
     displayList(data) {
-        if(JSON.stringify(data.acList) !== JSON.stringify([])) {
+        if(JSON.stringify(data.flights) !== JSON.stringify([])) {
             console.log('Printing list...');
-            flightList.innerHTML = listTemplate(data);
+            view.innerHTML = listTemplate(data);
         } else {
-            flightList.innerHTML = '<h3>Currently no flights in the area</h3>';
+            view.innerHTML = '<h3>Currently no flights in the area</h3>';
             console.log('Currently no flights in the area');
         }
     }
