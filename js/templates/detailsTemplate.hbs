@@ -1,0 +1,16 @@
+<h3>Flight details</h3>
+<button id="back-button">< Back to flights list</button>
+<div class="details grid-container">
+    <div class="info-column">
+        <p class="flight-info">{{this.model}}</p>
+        {{#if this.destination}}
+        <p class="flight-info">To: {{this.destination}}</p>
+        <p class="flight-info">From: {{this.origin}}</p>
+        {{else}}
+        <p class="flight-info">Origin and destination not available</p>
+        {{/if}}
+    </div>
+    <div class="logo-column">
+        <img src="https://logo.clearbit.com/{{this.logo}}?size=90" alt="{{this.airline}}"/>
+    </div>
+</div>

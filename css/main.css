@@ -1,6 +1,10 @@
-.grid-container {
+.details {
     display: grid;
-    grid-template-columns: 150px auto;
+    grid-template-rows: auto 120px;
+    background-color: palegoldenrod;
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
 }
 
 .flight-icon {
@@ -8,6 +12,8 @@
 }
 
 .flight {
+    display: grid;
+    grid-template-columns: 150px auto;
     background-color: rgb(178, 214, 230);
     padding: 10px;
     margin: 5px;

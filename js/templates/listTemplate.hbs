@@ -1,0 +1,13 @@
+{{#each flights}}
+    {{#if inAir}}
+    <div class="flight grid-container">
+        <div class="image-column">
+            <img class="flight-icon" src="{{getDirectionImage direction}}" />
+        </div>
+        <div class="info-column">
+            <p class="flight-id">Flight ID: {{flightCode}}</p>
+            <p class="flight-info">Altitude: {{altitude}}</p>
+        </div>
+    </div>
+    {{/if}}
+{{/each}}
