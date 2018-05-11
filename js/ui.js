@@ -9,6 +9,11 @@ const uiSelectors = {
 
 let view = document.querySelector(uiSelectors.view);
 
+const state = {
+    listData: null,
+    detailsData: null
+}
+
 class UI {
 
     loading() {
@@ -36,27 +41,48 @@ class UI {
         view.innerHTML = errorTemplate('Location services are not supported');
     }
 
-    displayList(data) {
-        if(JSON.stringify(data.flights) !== JSON.stringify([])) {
-            console.log('Printing list...');
-            view.innerHTML = listTemplate(data);
-            let activeFlights = Array.from(document.querySelectorAll('.flight'));
-            activeFlights.forEach((listing, i) => {
-                listing.addEventListener('click', () => {
-                    this.displayDetails(data, i);
-                }, false);
-            })
+    displayError404() {
+        view.innerHTML = errorTemplate('Nothing found. Error 404');
+    }
+
+    displayData(data) {
+        state.listData = data;
+        if(location.hash === '#home') {
+            this.displayList();
         } else {
-            view.innerHTML = '<h3>Currently no flights in the area</h3>';
-            console.log('Currently no flights in the area');
+            location.hash = '#home';
         }
     }
 
-    displayDetails(data, i) {
-        view.innerHTML = detailsTemplate(data.flights[i]);
-        document.getElementById('back-button').addEventListener('click', () => {
-            this.displayList(data);
-        }, false);
+    displayList() {
+        if((state.listData) && (JSON.stringify(state.listData.flights) !== JSON.stringify([]))) {
+            state.detailsData = null;
+            console.log('Printing list...');
+            view.innerHTML = listTemplate(state.listData);
+            let activeFlights = Array.from(document.querySelectorAll('.flight'));
+            activeFlights.forEach((listing, i) => {
+                listing.addEventListener('click', () => {
+                    state.detailsData = state.listData.flights[i];
+                    location.hash = '#details';
+                }, false);
+            })
+        } else if(state.listData) {
+            view.innerHTML = '<h3>Currently no flights in the area</h3>';
+            console.log('Currently no flights in the area');
+        } else {
+            location.hash = '#dialog';
+        }
+    }
+
+    displayDetails() {
+        if(state.detailsData === null) {
+            view.innerHTML = errorTemplate('Invalid operation');
+        } else {
+            view.innerHTML = detailsTemplate(state.detailsData);
+            document.getElementById('back-button').addEventListener('click', () => {
+                location.hash = '#home';
+            }, false);
+        }
     }
 
 }
