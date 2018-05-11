@@ -49,7 +49,11 @@ const navigate = () => {
 window.addEventListener('hashchange', navigate, false);
 
 onload = () => {
-    location.hash = '#dialog';
-    console.log('Start app...')
+    if(location.hash !== '#dialog') {
+        location.hash = '#dialog';
+        console.log('Start app...')
+    } else {
+        navigate();
+    }
 }
 
