@@ -1,20 +1,24 @@
 import ui from './ui';
 import { dataService, geoService } from './services';
 
+const sendDataRequest = (position) => {
+    dataService.getFlightData(position)
+        .then(data => {
+            ui.displayList(data);
+        })
+        .catch(error => {
+            ui.displayErrorDefault();
+            console.log(error)
+        })
+}
 
 const locationSuccessHandler = (position) => {
+    sendDataRequest(position);
     setInterval(() => {
-        dataService.getFlightData(position)
-            .then(data => {
-                ui.displayList(data);
-            })
-            .catch(error => {
-                ui.displayErrorDefault();
-                console.log(error)
-            })
-
+        sendDataRequest(position)
     }, 60000)
 }
+
 
 const locationFailHandler = (error) => {
     ui.displayErrorPermissions();
@@ -26,9 +30,10 @@ const locationUnavailableHandler = () => {
 }
 
 onload = () => {
-    ui.loading();
-    setTimeout(() => {
+    console.log('Start app...')
+    ui.displayDialog(() => {
+        ui.loading();
         geoService.getUserLocation(locationSuccessHandler, locationFailHandler, locationUnavailableHandler)
-    }, 3000);
+    })
 }
 

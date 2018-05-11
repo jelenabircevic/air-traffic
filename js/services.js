@@ -33,7 +33,7 @@ class DataService {
         });
         let flightData = response.acList;
         let flightList = flightData.map(flight => {
-            return new Flight(flight.Alt, flight.Trak, flight.Id, flight.Mdl, flight.To, flight.From, flight.OpIcao, flight.Gnd)
+            return new Flight(flight.Alt, flight.Trak, flight.Id, flight.Mdl, flight.To, flight.From, flight.Op, flight.Gnd)
         });
         let data = {
             flights: flightList.sort((a, b) => b.altitude - a.altitude)
